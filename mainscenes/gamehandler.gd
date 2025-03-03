@@ -12,10 +12,13 @@ var hp : int
 var label : Label
 var run : Button
 var rules_window : ColorRect
+var stats_window : ColorRect
 
 var roomsfx : AudioStreamPlayer
 var decksfx : AudioStreamPlayer
 var n_visible_roomcards: int = 0
+
+var conf = ConfigFile.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -30,22 +33,38 @@ func _ready() -> void:
 	weapon.set_card_attrs(ca.Suit.CLUBS, ca.Rank.ACE)
 	run = get_child(1).get_child(0).get_child(0)
 	label = get_child(1).get_child(0).get_child(1)
-	rules_window = get_node("../ColorRect")
+	rules_window = get_node("../rulesscreen")
+	stats_window = get_node("../statsscreen")
 	roomsfx = get_node("roomsfx")
 	decksfx = get_node("decksfx")
 	hp = 20
 	label.text = str(hp)
 	weaponrem.rank = 15
+	var err = conf.load("user://stats.cfg")
+	if err != OK:
+		print("user conf init")
+		init_conf()
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
+func fade_warning_text():
+	var warning : CanvasItem = get_node("DealWarning")
+	var tween = get_tree().create_tween()
+	warning.modulate.a = 1
+	tween.tween_property(warning, "modulate:a", 1, 0.5)
+	tween.tween_property(warning, "modulate:a", 0, 1)
+	
 func _on_rc_card_press(card : Card, suit : ca.Suit, rank : ca.Rank) -> void:
-	#card.set_card_attrs(ca.Suit.CLUBS, ca.Rank.KING)
+	if n_visible_roomcards == 1:
+		fade_warning_text()
+		return
 	print("play", suit, rank)
 	card.visible = false
 	n_visible_roomcards -= 1
 	run.disabled = true
+	
 	match suit:
 		ca.Suit.CLUBS, ca.Suit.SPADES:
 			var dmg : int
@@ -77,6 +96,13 @@ var nxt
 
 var game_started = false
 
+func init_conf():
+	conf.set_value("all","wins", 0)
+	save_stats()
+
+func save_stats():
+	conf.save("user://stats.cfg")
+
 func lose():
 	for cont in rooms:
 		cont.get_child(0).get_child(0).visible = false
@@ -88,6 +114,8 @@ func win():
 	for cont in rooms:
 		cont.get_child(0).get_child(0).visible = false
 	var winscreen = get_node("../winscreen")
+	conf.set_value("all","wins", conf.get_value("all","wins") + 1)
+	save_stats()
 	winscreen.visible = true
 	winscreen.play_fanfare()
 
@@ -147,7 +175,14 @@ func _on_close_rules_pressed() -> void:
 	rules_window.get_child(0).disabled = true
 
 
-func _on_button_pressed() -> void:
-	var winscreen = get_node("../winscreen")
-	winscreen.visible = true
-	winscreen.play_fanfare()
+func _on_stats_pressed() -> void:
+	stats_window.visible = true
+
+
+func _on_debugwins_pressed() -> void:
+	win()
+
+
+func _on_close_stats_pressed() -> void:
+	stats_window.visible = false
+	stats_window.get_node("close").disabled = true

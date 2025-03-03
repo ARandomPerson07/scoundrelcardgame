@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dpbgkhg0xab7o"]
+[gd_scene load_steps=26 format=3 uid="uid://dpbgkhg0xab7o"]
 
 [ext_resource type="Texture2D" uid="uid://d0oyfba148rr5" path="res://imports/table.png" id="1_pr3w4"]
 [ext_resource type="Script" path="res://mainscenes/gamehandler.gd" id="2_smhue"]
@@ -17,6 +17,7 @@
 [ext_resource type="AudioStream" uid="uid://xi1lyti5xbhw" path="res://imports/sfx/card_mix_7.mp3" id="13_5iluh"]
 [ext_resource type="AudioStream" uid="uid://txp0sppvbjr1" path="res://imports/sfx/card_mix_deal.mp3" id="14_m7qd7"]
 [ext_resource type="AudioStream" uid="uid://c7kvvvmogi7pq" path="res://imports/failure-drum-sound-effect-2-7184.mp3" id="17_xckgl"]
+[ext_resource type="Script" path="res://mainscenes/statsscreen.gd" id="18_8eoqu"]
 
 [sub_resource type="SystemFont" id="SystemFont_2aduu"]
 
@@ -34,6 +35,14 @@ stream_3/stream = ExtResource("10_10rv1")
 stream_4/stream = ExtResource("11_v52nq")
 stream_5/stream = ExtResource("12_f6xvt")
 stream_6/stream = ExtResource("13_5iluh")
+
+[sub_resource type="SystemFont" id="SystemFont_6ytv3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_i48pf"]
+font = SubResource("SystemFont_6ytv3")
+font_size = 24
+font_color = Color(0.89, 0.0445, 0.0445, 1)
+outline_color = Color(0.00820202, 0.00820202, 0.00820202, 1)
 
 [sub_resource type="SystemFont" id="SystemFont_oyhvn"]
 
@@ -54,7 +63,7 @@ metadata/_edit_lock_ = true
 offset_left = 74.0
 offset_top = 47.0
 offset_right = 1089.0
-offset_bottom = 563.0
+offset_bottom = 565.0
 script = ExtResource("2_smhue")
 
 [node name="dungeon" type="HBoxContainer" parent="gamehandler"]
@@ -121,34 +130,38 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="gamehandler/play area"]
+[node name="Menu" type="VBoxContainer" parent="gamehandler/play area"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 
-[node name="run" type="Button" parent="gamehandler/play area/VBoxContainer"]
+[node name="run" type="Button" parent="gamehandler/play area/Menu"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.35
 text = "RUN!"
 
-[node name="Label" type="Label" parent="gamehandler/play area/VBoxContainer"]
+[node name="Label" type="Label" parent="gamehandler/play area/Menu"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "20"
 label_settings = SubResource("LabelSettings_kt7mq")
 
-[node name="reset" type="Button" parent="gamehandler/play area/VBoxContainer"]
+[node name="reset" type="Button" parent="gamehandler/play area/Menu"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.03
 text = "Reset!"
 
-[node name="rules" type="Button" parent="gamehandler/play area/VBoxContainer"]
+[node name="rules" type="Button" parent="gamehandler/play area/Menu"]
 layout_mode = 2
 text = "Rules"
 script = ExtResource("6_6wp7o")
+
+[node name="stats" type="Button" parent="gamehandler/play area/Menu"]
+layout_mode = 2
+text = "Statistics"
 
 [node name="Weapon" type="HBoxContainer" parent="gamehandler/play area"]
 layout_mode = 2
@@ -178,14 +191,14 @@ layout_mode = 2
 
 [node name="WRCard" parent="gamehandler/play area/Weapon_Rem/Control" instance=ExtResource("3_nsbhq")]
 
-[node name="CenterContainer" type="CenterContainer" parent="gamehandler/play area"]
+[node name="DiscardCont" type="CenterContainer" parent="gamehandler/play area"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Control" type="Control" parent="gamehandler/play area/CenterContainer"]
+[node name="Control" type="Control" parent="gamehandler/play area/DiscardCont"]
 layout_mode = 2
 
-[node name="Discard" parent="gamehandler/play area/CenterContainer/Control" instance=ExtResource("3_nsbhq")]
+[node name="Discard" parent="gamehandler/play area/DiscardCont/Control" instance=ExtResource("3_nsbhq")]
 
 [node name="roomsfx" type="AudioStreamPlayer" parent="gamehandler"]
 stream = SubResource("AudioStreamRandomizer_1sy1s")
@@ -194,7 +207,14 @@ stream = SubResource("AudioStreamRandomizer_1sy1s")
 stream = ExtResource("14_m7qd7")
 volume_db = 7.324
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="DealWarning" type="Label" parent="gamehandler"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "Please deal a new room first"
+label_settings = SubResource("LabelSettings_i48pf")
+horizontal_alignment = 1
+
+[node name="rulesscreen" type="ColorRect" parent="."]
 visible = false
 offset_left = 66.0
 offset_top = 70.0
@@ -203,7 +223,7 @@ offset_bottom = 604.0
 color = Color(0.0980392, 0.156863, 0.168627, 0.921569)
 metadata/_edit_group_ = true
 
-[node name="close" type="Button" parent="ColorRect"]
+[node name="close" type="Button" parent="rulesscreen"]
 layout_direction = 3
 layout_mode = 0
 offset_left = 2.0
@@ -212,7 +232,7 @@ offset_right = 42.0
 offset_bottom = 41.0
 text = "x"
 
-[node name="Label" type="Label" parent="ColorRect"]
+[node name="Label" type="Label" parent="rulesscreen"]
 layout_mode = 2
 offset_left = 17.0
 offset_top = 4.0
@@ -300,20 +320,50 @@ text = "Reset!"
 stream = ExtResource("17_xckgl")
 volume_db = 13.183
 
-[node name="debug" type="Button" parent="."]
-offset_right = 265.0
-offset_bottom = 42.0
-text = "debugwin"
+[node name="statsscreen" type="ColorRect" parent="."]
+visible = false
+offset_left = 400.0
+offset_top = 250.0
+offset_right = 800.0
+offset_bottom = 450.0
+color = Color(0.0980392, 0.156863, 0.168627, 0.921569)
+script = ExtResource("18_8eoqu")
+metadata/_edit_group_ = true
+
+[node name="close" type="Button" parent="statsscreen"]
+layout_direction = 3
+layout_mode = 0
+offset_left = 2.0
+offset_top = 1.0
+offset_right = 42.0
+offset_bottom = 41.0
+text = "x"
+
+[node name="Label" type="Label" parent="statsscreen"]
+layout_mode = 2
+offset_left = 117.0
+offset_top = 71.0
+offset_right = 939.0
+offset_bottom = 519.0
+text = "Lifetime wins:"
+label_settings = SubResource("LabelSettings_e4dyq")
+
+[node name="debugwins" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
 
 [connection signal="deck_press" from="gamehandler/dungeon/CenterContainer/Control/deck" to="gamehandler" method="_on_deck_deck_press"]
 [connection signal="card_press" from="gamehandler/dungeon/room/CenterContainer/Control/RC" to="gamehandler" method="_on_rc_card_press"]
 [connection signal="card_press" from="gamehandler/dungeon/room/CenterContainer2/Control/RC" to="gamehandler" method="_on_rc_card_press"]
 [connection signal="card_press" from="gamehandler/dungeon/room/CenterContainer3/Control/RC" to="gamehandler" method="_on_rc_card_press"]
 [connection signal="card_press" from="gamehandler/dungeon/room/CenterContainer4/Control/RC" to="gamehandler" method="_on_rc_card_press"]
-[connection signal="pressed" from="gamehandler/play area/VBoxContainer/run" to="gamehandler" method="_on_run_pressed"]
-[connection signal="pressed" from="gamehandler/play area/VBoxContainer/reset" to="gamehandler" method="_on_reset_pressed"]
-[connection signal="pressed" from="gamehandler/play area/VBoxContainer/rules" to="gamehandler" method="_on_rules_pressed"]
-[connection signal="pressed" from="ColorRect/close" to="gamehandler" method="_on_close_rules_pressed"]
+[connection signal="pressed" from="gamehandler/play area/Menu/run" to="gamehandler" method="_on_run_pressed"]
+[connection signal="pressed" from="gamehandler/play area/Menu/reset" to="gamehandler" method="_on_reset_pressed"]
+[connection signal="pressed" from="gamehandler/play area/Menu/rules" to="gamehandler" method="_on_rules_pressed"]
+[connection signal="pressed" from="gamehandler/play area/Menu/stats" to="gamehandler" method="_on_stats_pressed"]
+[connection signal="pressed" from="rulesscreen/close" to="gamehandler" method="_on_close_rules_pressed"]
 [connection signal="pressed" from="winscreen/reset" to="gamehandler" method="_on_reset_pressed"]
 [connection signal="pressed" from="losescreen/reset" to="gamehandler" method="_on_reset_pressed"]
-[connection signal="pressed" from="debug" to="gamehandler" method="_on_button_pressed"]
+[connection signal="visibility_changed" from="statsscreen" to="statsscreen" method="_on_visibility_changed"]
+[connection signal="pressed" from="statsscreen/close" to="gamehandler" method="_on_close_stats_pressed"]
+[connection signal="pressed" from="debugwins" to="gamehandler" method="_on_debugwins_pressed"]
