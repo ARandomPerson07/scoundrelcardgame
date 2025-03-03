@@ -160,7 +160,8 @@ func _on_run_pressed() -> void:
 			cur_card.set_card_attrs(nsuit,nrank)
 			cur_card.visible = true
 	run.disabled = true
-
+	decksfx.play()
+	
 func _on_reset_pressed() -> void:
 	get_tree().reload_current_scene()
 

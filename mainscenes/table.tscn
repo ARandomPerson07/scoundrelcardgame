@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dpbgkhg0xab7o"]
+[gd_scene load_steps=28 format=3 uid="uid://dpbgkhg0xab7o"]
 
 [ext_resource type="Texture2D" uid="uid://d0oyfba148rr5" path="res://imports/table.png" id="1_pr3w4"]
 [ext_resource type="Script" path="res://mainscenes/gamehandler.gd" id="2_smhue"]
@@ -6,8 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://cel0idtw8lonl" path="res://card.tscn" id="3_nsbhq"]
 [ext_resource type="PackedScene" uid="uid://crl4vclr21yx7" path="res://deck.tscn" id="3_wvlb0"]
 [ext_resource type="Script" path="res://mainscenes/rules.gd" id="6_6wp7o"]
+[ext_resource type="Script" path="res://mainscenes/music.gd" id="7_brsm8"]
 [ext_resource type="AudioStream" uid="uid://dp4r6qmqq86t0" path="res://imports/sfx/card_mix_1.mp3" id="7_c2fwl"]
 [ext_resource type="Script" path="res://mainscenes/winscreen.gd" id="7_qx7kh"]
+[ext_resource type="AudioStream" uid="uid://bvk02lehlv3l2" path="res://imports/podcast-jazz-waltz-cozy-relaxing-vibes-233733.mp3" id="8_lr7j0"]
 [ext_resource type="AudioStream" uid="uid://ew7tlurgk4r8" path="res://imports/success-fanfare-trumpets-6185.mp3" id="8_nxp2k"]
 [ext_resource type="AudioStream" uid="uid://cjpwx1klrrdm6" path="res://imports/sfx/card_mix_2.mp3" id="8_u7fey"]
 [ext_resource type="AudioStream" uid="uid://cn1teihvevwmd" path="res://imports/sfx/card_mix_3.mp3" id="9_iwxhh"]
@@ -162,6 +164,16 @@ script = ExtResource("6_6wp7o")
 [node name="stats" type="Button" parent="gamehandler/play area/Menu"]
 layout_mode = 2
 text = "Statistics"
+
+[node name="music" type="CheckButton" parent="gamehandler/play area/Menu"]
+layout_mode = 2
+button_pressed = true
+text = "Music"
+script = ExtResource("7_brsm8")
+
+[node name="player" type="AudioStreamPlayer" parent="gamehandler/play area/Menu/music"]
+stream = ExtResource("8_lr7j0")
+autoplay = true
 
 [node name="Weapon" type="HBoxContainer" parent="gamehandler/play area"]
 layout_mode = 2
@@ -361,6 +373,7 @@ offset_bottom = 8.0
 [connection signal="pressed" from="gamehandler/play area/Menu/reset" to="gamehandler" method="_on_reset_pressed"]
 [connection signal="pressed" from="gamehandler/play area/Menu/rules" to="gamehandler" method="_on_rules_pressed"]
 [connection signal="pressed" from="gamehandler/play area/Menu/stats" to="gamehandler" method="_on_stats_pressed"]
+[connection signal="toggled" from="gamehandler/play area/Menu/music" to="gamehandler/play area/Menu/music" method="_on_toggled"]
 [connection signal="pressed" from="rulesscreen/close" to="gamehandler" method="_on_close_rules_pressed"]
 [connection signal="pressed" from="winscreen/reset" to="gamehandler" method="_on_reset_pressed"]
 [connection signal="pressed" from="losescreen/reset" to="gamehandler" method="_on_reset_pressed"]
