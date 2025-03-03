@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dpbgkhg0xab7o"]
+[gd_scene load_steps=23 format=3 uid="uid://dpbgkhg0xab7o"]
 
 [ext_resource type="Texture2D" uid="uid://d0oyfba148rr5" path="res://imports/table.png" id="1_pr3w4"]
 [ext_resource type="Script" path="res://mainscenes/gamehandler.gd" id="2_smhue"]
@@ -6,12 +6,34 @@
 [ext_resource type="PackedScene" uid="uid://cel0idtw8lonl" path="res://card.tscn" id="3_nsbhq"]
 [ext_resource type="PackedScene" uid="uid://crl4vclr21yx7" path="res://deck.tscn" id="3_wvlb0"]
 [ext_resource type="Script" path="res://mainscenes/rules.gd" id="6_6wp7o"]
+[ext_resource type="AudioStream" uid="uid://dp4r6qmqq86t0" path="res://imports/sfx/card_mix_1.mp3" id="7_c2fwl"]
+[ext_resource type="Script" path="res://mainscenes/winscreen.gd" id="7_qx7kh"]
+[ext_resource type="AudioStream" uid="uid://ew7tlurgk4r8" path="res://imports/success-fanfare-trumpets-6185.mp3" id="8_nxp2k"]
+[ext_resource type="AudioStream" uid="uid://cjpwx1klrrdm6" path="res://imports/sfx/card_mix_2.mp3" id="8_u7fey"]
+[ext_resource type="AudioStream" uid="uid://cn1teihvevwmd" path="res://imports/sfx/card_mix_3.mp3" id="9_iwxhh"]
+[ext_resource type="AudioStream" uid="uid://b73btgvxlaqp0" path="res://imports/sfx/card_mix_4.mp3" id="10_10rv1"]
+[ext_resource type="AudioStream" uid="uid://lwy5khc71axg" path="res://imports/sfx/card_mix_5.mp3" id="11_v52nq"]
+[ext_resource type="AudioStream" uid="uid://bo836dda6vmlb" path="res://imports/sfx/card_mix_6.mp3" id="12_f6xvt"]
+[ext_resource type="AudioStream" uid="uid://xi1lyti5xbhw" path="res://imports/sfx/card_mix_7.mp3" id="13_5iluh"]
+[ext_resource type="AudioStream" uid="uid://txp0sppvbjr1" path="res://imports/sfx/card_mix_deal.mp3" id="14_m7qd7"]
+[ext_resource type="AudioStream" uid="uid://c7kvvvmogi7pq" path="res://imports/failure-drum-sound-effect-2-7184.mp3" id="17_xckgl"]
 
 [sub_resource type="SystemFont" id="SystemFont_2aduu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_kt7mq"]
 font = SubResource("SystemFont_2aduu")
 font_size = 64
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_1sy1s"]
+playback_mode = 1
+streams_count = 7
+stream_0/stream = ExtResource("7_c2fwl")
+stream_1/stream = ExtResource("8_u7fey")
+stream_2/stream = ExtResource("9_iwxhh")
+stream_3/stream = ExtResource("10_10rv1")
+stream_4/stream = ExtResource("11_v52nq")
+stream_5/stream = ExtResource("12_f6xvt")
+stream_6/stream = ExtResource("13_5iluh")
 
 [sub_resource type="SystemFont" id="SystemFont_oyhvn"]
 
@@ -165,6 +187,13 @@ layout_mode = 2
 
 [node name="Discard" parent="gamehandler/play area/CenterContainer/Control" instance=ExtResource("3_nsbhq")]
 
+[node name="roomsfx" type="AudioStreamPlayer" parent="gamehandler"]
+stream = SubResource("AudioStreamRandomizer_1sy1s")
+
+[node name="decksfx" type="AudioStreamPlayer" parent="gamehandler"]
+stream = ExtResource("14_m7qd7")
+volume_db = 7.324
+
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
 offset_left = 66.0
@@ -206,6 +235,76 @@ not twice in a row.
 - You win when no cards are left in the deck."
 label_settings = SubResource("LabelSettings_e4dyq")
 
+[node name="winscreen" type="ColorRect" parent="."]
+visible = false
+offset_left = 388.0
+offset_top = 212.0
+offset_right = 844.0
+offset_bottom = 387.0
+color = Color(0.0980392, 0.156863, 0.168627, 0.921569)
+script = ExtResource("7_qx7kh")
+
+[node name="Label" type="Label" parent="winscreen"]
+layout_mode = 2
+offset_left = 21.0
+offset_top = 30.0
+offset_right = 436.0
+offset_bottom = 78.0
+text = "You Win!"
+label_settings = SubResource("LabelSettings_e4dyq")
+horizontal_alignment = 1
+
+[node name="reset" type="Button" parent="winscreen"]
+layout_mode = 0
+offset_left = 198.0
+offset_top = 99.0
+offset_right = 254.0
+offset_bottom = 130.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.03
+text = "Reset!"
+
+[node name="sfx" type="AudioStreamPlayer" parent="winscreen"]
+stream = ExtResource("8_nxp2k")
+
+[node name="losescreen" type="ColorRect" parent="."]
+visible = false
+offset_left = 388.0
+offset_top = 212.0
+offset_right = 844.0
+offset_bottom = 387.0
+color = Color(0.0980392, 0.156863, 0.168627, 0.921569)
+script = ExtResource("7_qx7kh")
+
+[node name="Label" type="Label" parent="losescreen"]
+layout_mode = 2
+offset_left = 21.0
+offset_top = 30.0
+offset_right = 436.0
+offset_bottom = 78.0
+text = "Game Over :("
+label_settings = SubResource("LabelSettings_e4dyq")
+horizontal_alignment = 1
+
+[node name="reset" type="Button" parent="losescreen"]
+layout_mode = 0
+offset_left = 198.0
+offset_top = 99.0
+offset_right = 254.0
+offset_bottom = 130.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.03
+text = "Reset!"
+
+[node name="sfx" type="AudioStreamPlayer" parent="losescreen"]
+stream = ExtResource("17_xckgl")
+volume_db = 13.183
+
+[node name="debug" type="Button" parent="."]
+offset_right = 265.0
+offset_bottom = 42.0
+text = "debugwin"
+
 [connection signal="deck_press" from="gamehandler/dungeon/CenterContainer/Control/deck" to="gamehandler" method="_on_deck_deck_press"]
 [connection signal="card_press" from="gamehandler/dungeon/room/CenterContainer/Control/RC" to="gamehandler" method="_on_rc_card_press"]
 [connection signal="card_press" from="gamehandler/dungeon/room/CenterContainer2/Control/RC" to="gamehandler" method="_on_rc_card_press"]
@@ -215,3 +314,6 @@ label_settings = SubResource("LabelSettings_e4dyq")
 [connection signal="pressed" from="gamehandler/play area/VBoxContainer/reset" to="gamehandler" method="_on_reset_pressed"]
 [connection signal="pressed" from="gamehandler/play area/VBoxContainer/rules" to="gamehandler" method="_on_rules_pressed"]
 [connection signal="pressed" from="ColorRect/close" to="gamehandler" method="_on_close_rules_pressed"]
+[connection signal="pressed" from="winscreen/reset" to="gamehandler" method="_on_reset_pressed"]
+[connection signal="pressed" from="losescreen/reset" to="gamehandler" method="_on_reset_pressed"]
+[connection signal="pressed" from="debug" to="gamehandler" method="_on_button_pressed"]
