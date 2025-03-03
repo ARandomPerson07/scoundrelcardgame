@@ -1,0 +1,102 @@
+extends VBoxContainer
+
+var dungeon : Node
+var weapon: Card
+var discardtop : Card
+var weaponrem : Card
+var deck : Deck
+var rooms : Array[Node]
+var weapontoggle : CheckButton
+var hp : int
+var label : Label
+var run : Button
+var rules_window : ColorRect
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	dungeon = get_child(0)
+	weapon = get_child(1).get_child(1).get_child(0).get_child(0).get_child(0)
+	weapontoggle = get_child(1).get_child(1).get_child(1)
+	weaponrem = get_child(1).get_child(2).get_child(0).get_child(0)
+	discardtop = get_child(1).get_child(3).get_child(0).get_child(0)
+	rooms = dungeon.get_child(1).get_children()
+	deck = dungeon.get_child(0).get_child(0).get_child(0)
+	weapon.set_card_attrs(ca.Suit.CLUBS, ca.Rank.ACE)
+	run = get_child(1).get_child(0).get_child(0)
+	label = get_child(1).get_child(0).get_child(1)
+	rules_window = get_node("../ColorRect")
+	hp = 20
+	label.text = str(hp)
+	weaponrem.rank = 15
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+func _on_rc_card_press(card : Card, suit : ca.Suit, rank : ca.Rank) -> void:
+	#card.set_card_attrs(ca.Suit.CLUBS, ca.Rank.KING)
+	print("play", suit, rank)
+	card.visible = false
+	match suit:
+		ca.Suit.CLUBS, ca.Suit.SPADES:
+			var dmg : int
+			if not weapontoggle.button_pressed or rank > weaponrem.rank:
+				hp -= rank
+				label.text = str(hp)
+			else:
+				dmg = rank - weapon.rank
+				if dmg < 0:
+					dmg = 0
+				hp -= dmg
+				label.text = str(hp)
+				weaponrem.set_card_attrs(suit,rank)
+				weaponrem.visible = true
+		ca.Suit.DIAMONDS:
+			weapon.set_card_attrs(suit, rank)
+			weapon.visible = true
+			weaponrem.visible = false
+			weaponrem.rank = 14
+		ca.Suit.HEARTS:
+			hp += rank
+			if hp > 20:
+				hp = 20
+			label.text = str(hp)
+
+var nxt
+
+func _on_deck_deck_press() -> void:
+	print("dealing")
+	run.disabled = false
+	for cont in rooms:
+		var cur_card : Card = cont.get_child(0).get_child(0)
+		if cur_card.visible:
+			continue
+		else:
+			nxt = deck.get_next()
+			var nsuit = nxt[0]
+			var nrank = nxt[1]
+			cur_card.set_card_attrs(nsuit,nrank)
+			cur_card.visible = true
+
+
+func _on_run_pressed() -> void:
+	run.disabled = true
+	var buf : Array = []
+	for cont in rooms:
+		var cur_card : Card = cont.get_child(0).get_child(0)
+		if cur_card.visible:
+			buf.append([cur_card.suit, cur_card.rank])
+			cur_card.visible = false
+	deck.put_bottom(buf)
+
+
+func _on_reset_pressed() -> void:
+	get_tree().reload_current_scene()
+
+
+func _on_rules_pressed() -> void:
+	rules_window.visible = true
+	rules_window.get_child(0).disabled = false
+
+
+func _on_close_rules_pressed() -> void:
+	rules_window.visible = false
+	rules_window.get_child(0).disabled = true

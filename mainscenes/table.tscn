@@ -1,0 +1,217 @@
+[gd_scene load_steps=11 format=3 uid="uid://dpbgkhg0xab7o"]
+
+[ext_resource type="Texture2D" uid="uid://d0oyfba148rr5" path="res://imports/table.png" id="1_pr3w4"]
+[ext_resource type="Script" path="res://mainscenes/gamehandler.gd" id="2_smhue"]
+[ext_resource type="Script" path="res://mainscenes/room.gd" id="3_hskq7"]
+[ext_resource type="PackedScene" uid="uid://cel0idtw8lonl" path="res://card.tscn" id="3_nsbhq"]
+[ext_resource type="PackedScene" uid="uid://crl4vclr21yx7" path="res://deck.tscn" id="3_wvlb0"]
+[ext_resource type="Script" path="res://mainscenes/rules.gd" id="6_6wp7o"]
+
+[sub_resource type="SystemFont" id="SystemFont_2aduu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_kt7mq"]
+font = SubResource("SystemFont_2aduu")
+font_size = 64
+
+[sub_resource type="SystemFont" id="SystemFont_oyhvn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_e4dyq"]
+font = SubResource("SystemFont_oyhvn")
+font_size = 22
+outline_color = Color(0.0875993, 0.142493, 0.132188, 1)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Table" type="TextureRect" parent="."]
+offset_right = 1151.0
+offset_bottom = 646.0
+texture = ExtResource("1_pr3w4")
+metadata/_edit_lock_ = true
+
+[node name="gamehandler" type="VBoxContainer" parent="."]
+offset_left = 74.0
+offset_top = 47.0
+offset_right = 1089.0
+offset_bottom = 563.0
+script = ExtResource("2_smhue")
+
+[node name="dungeon" type="HBoxContainer" parent="gamehandler"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="CenterContainer" type="CenterContainer" parent="gamehandler/dungeon"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5
+metadata/_edit_lock_ = true
+
+[node name="Control" type="Control" parent="gamehandler/dungeon/CenterContainer"]
+layout_mode = 2
+
+[node name="deck" parent="gamehandler/dungeon/CenterContainer/Control" instance=ExtResource("3_wvlb0")]
+
+[node name="room" type="HBoxContainer" parent="gamehandler/dungeon"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
+script = ExtResource("3_hskq7")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="CenterContainer" type="CenterContainer" parent="gamehandler/dungeon/room"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="Control" parent="gamehandler/dungeon/room/CenterContainer"]
+layout_mode = 2
+
+[node name="RC" parent="gamehandler/dungeon/room/CenterContainer/Control" instance=ExtResource("3_nsbhq")]
+
+[node name="CenterContainer2" type="CenterContainer" parent="gamehandler/dungeon/room"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="Control" parent="gamehandler/dungeon/room/CenterContainer2"]
+layout_mode = 2
+
+[node name="RC" parent="gamehandler/dungeon/room/CenterContainer2/Control" instance=ExtResource("3_nsbhq")]
+
+[node name="CenterContainer3" type="CenterContainer" parent="gamehandler/dungeon/room"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="Control" parent="gamehandler/dungeon/room/CenterContainer3"]
+layout_mode = 2
+
+[node name="RC" parent="gamehandler/dungeon/room/CenterContainer3/Control" instance=ExtResource("3_nsbhq")]
+
+[node name="CenterContainer4" type="CenterContainer" parent="gamehandler/dungeon/room"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="Control" parent="gamehandler/dungeon/room/CenterContainer4"]
+layout_mode = 2
+
+[node name="RC" parent="gamehandler/dungeon/room/CenterContainer4/Control" instance=ExtResource("3_nsbhq")]
+
+[node name="play area" type="HBoxContainer" parent="gamehandler"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="gamehandler/play area"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="run" type="Button" parent="gamehandler/play area/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.35
+text = "RUN!"
+
+[node name="Label" type="Label" parent="gamehandler/play area/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "20"
+label_settings = SubResource("LabelSettings_kt7mq")
+
+[node name="reset" type="Button" parent="gamehandler/play area/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.03
+text = "Reset!"
+
+[node name="rules" type="Button" parent="gamehandler/play area/VBoxContainer"]
+layout_mode = 2
+text = "Rules"
+script = ExtResource("6_6wp7o")
+
+[node name="Weapon" type="HBoxContainer" parent="gamehandler/play area"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="gamehandler/play area/Weapon"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="Control" parent="gamehandler/play area/Weapon/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WCard" parent="gamehandler/play area/Weapon/CenterContainer/Control" instance=ExtResource("3_nsbhq")]
+
+[node name="CheckButton" type="CheckButton" parent="gamehandler/play area/Weapon"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Use Weapon"
+
+[node name="Weapon_Rem" type="CenterContainer" parent="gamehandler/play area"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="Control" parent="gamehandler/play area/Weapon_Rem"]
+layout_mode = 2
+
+[node name="WRCard" parent="gamehandler/play area/Weapon_Rem/Control" instance=ExtResource("3_nsbhq")]
+
+[node name="CenterContainer" type="CenterContainer" parent="gamehandler/play area"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="Control" parent="gamehandler/play area/CenterContainer"]
+layout_mode = 2
+
+[node name="Discard" parent="gamehandler/play area/CenterContainer/Control" instance=ExtResource("3_nsbhq")]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+offset_left = 66.0
+offset_top = 70.0
+offset_right = 1081.0
+offset_bottom = 604.0
+color = Color(0.0980392, 0.156863, 0.168627, 0.921569)
+metadata/_edit_group_ = true
+
+[node name="close" type="Button" parent="ColorRect"]
+layout_direction = 3
+layout_mode = 0
+offset_left = 2.0
+offset_top = 1.0
+offset_right = 42.0
+offset_bottom = 41.0
+text = "x"
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 2
+offset_left = 17.0
+offset_top = 4.0
+offset_right = 939.0
+offset_bottom = 519.0
+text = "Rules
+44 card \"Dungeon\", 4 dealt at a time to form a \"room\"
+26 Spade/Club \"Monsters\" (2 to A)
+9 Diamond \"Weapons\" (2 to 10)
+9 Heart \"Health Potions\" (2 to 10)
+
+Click on one of the four dealt cards to activate it. 
+- Monsters take HP from you equal to their rank (JQKA are 11-14)
+- If you have a weapon enabled, its rank is subtracted from the damage
+- When you use a weapon to reduce damage, you cannot use that weapon again
+for monsters with higher rank
+- Health Potions heal HP equal to rank, cannot overheal you past 20
+- You can run from a room, putting all remaining cards in the bottom in order, but 
+not twice in a row.
+- You win when no cards are left in the deck."
+label_settings = SubResource("LabelSettings_e4dyq")
+
+[connection signal="deck_press" from="gamehandler/dungeon/CenterContainer/Control/deck" to="gamehandler" method="_on_deck_deck_press"]
+[connection signal="card_press" from="gamehandler/dungeon/room/CenterContainer/Control/RC" to="gamehandler" method="_on_rc_card_press"]
+[connection signal="card_press" from="gamehandler/dungeon/room/CenterContainer2/Control/RC" to="gamehandler" method="_on_rc_card_press"]
+[connection signal="card_press" from="gamehandler/dungeon/room/CenterContainer3/Control/RC" to="gamehandler" method="_on_rc_card_press"]
+[connection signal="card_press" from="gamehandler/dungeon/room/CenterContainer4/Control/RC" to="gamehandler" method="_on_rc_card_press"]
+[connection signal="pressed" from="gamehandler/play area/VBoxContainer/run" to="gamehandler" method="_on_run_pressed"]
+[connection signal="pressed" from="gamehandler/play area/VBoxContainer/reset" to="gamehandler" method="_on_reset_pressed"]
+[connection signal="pressed" from="gamehandler/play area/VBoxContainer/rules" to="gamehandler" method="_on_rules_pressed"]
+[connection signal="pressed" from="ColorRect/close" to="gamehandler" method="_on_close_rules_pressed"]

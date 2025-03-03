@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://dariacn28t0a7"]
+
+[ext_resource type="Texture2D" uid="uid://cmkd0xj6wkkw7" path="res://imports/SBS - 2D Poker Pack/Top-Down/Cards/Card_Back-88x124.png" id="1_2iv2o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ub17l"]
+atlas = ExtResource("1_2iv2o")
+region = Rect2(0, 0, 88, 124)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ub17l")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

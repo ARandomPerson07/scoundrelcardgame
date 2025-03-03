@@ -1,0 +1,73 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpbgkhg0xab7o"]
+
+[ext_resource type="Texture2D" uid="uid://d0oyfba148rr5" path="res://imports/table.png" id="1_pr3w4"]
+[ext_resource type="SpriteFrames" uid="uid://dariacn28t0a7" path="res://imports/SBS - 2D Poker Pack/Top-Down/spriteframes/deckbacks.tres" id="2_407q3"]
+[ext_resource type="PackedScene" uid="uid://cel0idtw8lonl" path="res://card.tscn" id="3_nsbhq"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Table" type="TextureRect" parent="."]
+offset_right = 1151.0
+offset_bottom = 646.0
+texture = ExtResource("1_pr3w4")
+metadata/_edit_lock_ = true
+
+[node name="tablecont" type="VBoxContainer" parent="."]
+offset_left = 74.0
+offset_top = 47.0
+offset_right = 1089.0
+offset_bottom = 563.0
+
+[node name="dungeon" type="HBoxContainer" parent="tablecont"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="CenterContainer" type="CenterContainer" parent="tablecont/dungeon"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5
+metadata/_edit_lock_ = true
+
+[node name="MainDeck" type="AnimatedSprite2D" parent="tablecont/dungeon/CenterContainer"]
+sprite_frames = ExtResource("2_407q3")
+centered = false
+
+[node name="room" type="HBoxContainer" parent="tablecont/dungeon"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="CenterContainer" type="CenterContainer" parent="tablecont/dungeon/room"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Card" parent="tablecont/dungeon/room/CenterContainer" instance=ExtResource("3_nsbhq")]
+centered = false
+
+[node name="CenterContainer2" type="CenterContainer" parent="tablecont/dungeon/room"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Card" parent="tablecont/dungeon/room/CenterContainer2" instance=ExtResource("3_nsbhq")]
+centered = false
+
+[node name="CenterContainer3" type="CenterContainer" parent="tablecont/dungeon/room"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Card" parent="tablecont/dungeon/room/CenterContainer3" instance=ExtResource("3_nsbhq")]
+centered = false
+
+[node name="CenterContainer4" type="CenterContainer" parent="tablecont/dungeon/room"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Card" parent="tablecont/dungeon/room/CenterContainer4" instance=ExtResource("3_nsbhq")]
+centered = false
+
+[node name="play area" type="HBoxContainer" parent="tablecont"]
+layout_mode = 2
+size_flags_vertical = 3

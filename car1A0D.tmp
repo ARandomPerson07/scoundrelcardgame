@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cel0idtw8lonl"]
+
+[ext_resource type="SpriteFrames" uid="uid://b27gr80tqautk" path="res://imports/SBS - 2D Poker Pack/Top-Down/spriteframes/cardsprites.tres" id="1_ju2mr"]
+[ext_resource type="Script" path="res://card.gd" id="2_6ksud"]
+
+[node name="Card" type="AnimatedSprite2D"]
+sprite_frames = ExtResource("1_ju2mr")
+animation = &"clubs"
+script = ExtResource("2_6ksud")
