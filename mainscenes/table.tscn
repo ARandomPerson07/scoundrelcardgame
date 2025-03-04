@@ -176,6 +176,11 @@ script = ExtResource("7_brsm8")
 stream = ExtResource("8_lr7j0")
 autoplay = true
 
+[node name="warn" type="CheckButton" parent="gamehandler/play area/Menu"]
+layout_mode = 2
+button_pressed = true
+text = "Warn"
+
 [node name="Weapon" type="HBoxContainer" parent="gamehandler/play area"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -404,6 +409,7 @@ label_settings = SubResource("LabelSettings_e4dyq")
 [connection signal="pressed" from="gamehandler/play area/Menu/rules" to="gamehandler" method="_on_rules_pressed"]
 [connection signal="pressed" from="gamehandler/play area/Menu/stats" to="gamehandler" method="_on_stats_pressed"]
 [connection signal="toggled" from="gamehandler/play area/Menu/music" to="gamehandler/play area/Menu/music" method="_on_toggled"]
+[connection signal="toggled" from="gamehandler/play area/Menu/warn" to="gamehandler" method="_on_warn_toggled"]
 [connection signal="pressed" from="rulesscreen/close" to="rulesscreen" method="_on_close_rules_pressed"]
 [connection signal="pressed" from="winscreen/reset" to="gamehandler" method="_on_reset_pressed"]
 [connection signal="pressed" from="losescreen/reset" to="gamehandler" method="_on_reset_pressed"]

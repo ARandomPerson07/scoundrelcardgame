@@ -60,6 +60,7 @@ func fade_warning_text():
 func discard(card: Card):
 	card.visible = false
 	discardtop.set_card_attrs(card.suit, card.rank)
+	discardtop.visible = true
 	
 func update_hp(adj):
 	hp += adj
@@ -73,13 +74,33 @@ func checkwinloss():
 	if n_visible_roomcards <= 0 and len(deck.deckarr) <= 0:
 		win()
 
+func move_to_discard(card: Card):
+	card.visible = false
+	discardtop.set_card_attrs(card.suit, card.rank)
+	discardtop.visible = true
+
+func move_to_weapon(card : Card):
+	if weapon.visible:
+		move_to_discard(weaponrem)
+		move_to_discard(weapon)
+	card.visible = false
+	weapon.set_card_attrs(card.suit, card.rank)	
+	weapon.visible = true
+
+func move_to_weaponrem(card: Card):
+	if weaponrem.visible:
+		move_to_discard(weaponrem)
+	card.visible = false
+	weaponrem.set_card_attrs(card.suit, card.rank)
+	weaponrem.visible = true
+
 func _on_rc_card_press(card : Card, suit : ca.Suit, rank : ca.Rank) -> void:
 	if n_visible_roomcards == 1:
 		if !len(deck.deckarr) == 0:
 			fade_warning_text()
 			return
 	print("play", suit, rank)
-	card.visible = false
+	#card.visible = false
 	n_visible_roomcards -= 1
 	run.disabled = true
 	
@@ -88,20 +109,23 @@ func _on_rc_card_press(card : Card, suit : ca.Suit, rank : ca.Rank) -> void:
 			var dmg : int
 			if not weapontoggle.button_pressed or rank >= weaponrem.rank:
 				update_hp(-rank)
+				move_to_discard(card)
 			else:
 				dmg = rank - weapon.rank
 				if dmg < 0:
 					dmg = 0
 				update_hp(-dmg)
-				weaponrem.set_card_attrs(suit,rank)
-				weaponrem.visible = true
+				move_to_weaponrem(card)
 		ca.Suit.DIAMONDS:
-			weapon.set_card_attrs(suit, rank)
-			weapon.visible = true
-			weaponrem.visible = false
+			if weapon.visible:
+				move_to_discard(weapon)
+			if weaponrem.visible:
+				move_to_discard(weaponrem)
+			move_to_weapon(card)
 			weaponrem.rank = ca.Rank.OVER
 		ca.Suit.HEARTS:
 			update_hp(rank)
+			move_to_discard(card)
 	roomsfx.play()
 	update_monsters()
 	checkwinloss()
@@ -151,8 +175,15 @@ func deal():
 			cur_card.visible = true
 	update_monsters()
 
+@onready
+var warn : CheckButton = get_node("play area/Menu/warn")
+
 func update_monsters():
 	#print("updating monsters")
+	if not warn.button_pressed:
+		for cont in rooms:
+			cont.get_node("Control/RC").hide_warning()
+		return
 	for cont in rooms:
 		#print("checking card")
 		var cur_card = cont.get_node("Control/RC")
@@ -204,3 +235,6 @@ func _on_stats_pressed() -> void:
 func _on_debugwins_pressed() -> void:
 	var game = get_node("../gamehandler")
 	game.update_hp(10)
+
+func _on_warn_toggled(_toggled_on: bool) -> void:
+	update_monsters()
