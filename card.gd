@@ -20,7 +20,7 @@ func _ready() -> void:
 	self.visible = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func set_card_attrs(nsuit: ca.Suit, nrank: ca.Rank):
@@ -37,7 +37,16 @@ func _set_card_sprite(nsuit: ca.Suit, nrank: ca.Rank):
 
 signal card_press
 
-func _input_event(viewport, event, shape_idx):
+func _input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed:
 		if visible:
 			card_press.emit(self, self.suit, self.rank)
+
+@onready
+var warning = get_node("ColorRect")
+
+func show_warning():
+	warning.visible = true
+
+func hide_warning():
+	warning.visible = false

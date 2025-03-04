@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dpbgkhg0xab7o"]
+[gd_scene load_steps=29 format=3 uid="uid://dpbgkhg0xab7o"]
 
 [ext_resource type="Texture2D" uid="uid://d0oyfba148rr5" path="res://imports/table.png" id="1_pr3w4"]
 [ext_resource type="Script" path="res://mainscenes/gamehandler.gd" id="2_smhue"]
@@ -18,6 +18,7 @@
 [ext_resource type="AudioStream" uid="uid://bo836dda6vmlb" path="res://imports/sfx/card_mix_6.mp3" id="12_f6xvt"]
 [ext_resource type="AudioStream" uid="uid://xi1lyti5xbhw" path="res://imports/sfx/card_mix_7.mp3" id="13_5iluh"]
 [ext_resource type="AudioStream" uid="uid://txp0sppvbjr1" path="res://imports/sfx/card_mix_deal.mp3" id="14_m7qd7"]
+[ext_resource type="Script" path="res://mainscenes/rulesscreen.gd" id="17_l27ob"]
 [ext_resource type="AudioStream" uid="uid://c7kvvvmogi7pq" path="res://imports/failure-drum-sound-effect-2-7184.mp3" id="17_xckgl"]
 [ext_resource type="Script" path="res://mainscenes/statsscreen.gd" id="18_8eoqu"]
 
@@ -143,7 +144,7 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.35
 text = "RUN!"
 
-[node name="Label" type="Label" parent="gamehandler/play area/Menu"]
+[node name="hplabel" type="Label" parent="gamehandler/play area/Menu"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -189,7 +190,7 @@ size_flags_horizontal = 3
 
 [node name="WCard" parent="gamehandler/play area/Weapon/CenterContainer/Control" instance=ExtResource("3_nsbhq")]
 
-[node name="CheckButton" type="CheckButton" parent="gamehandler/play area/Weapon"]
+[node name="WeaponToggle" type="CheckButton" parent="gamehandler/play area/Weapon"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Use Weapon"
@@ -233,6 +234,7 @@ offset_top = 70.0
 offset_right = 1081.0
 offset_bottom = 604.0
 color = Color(0.0980392, 0.156863, 0.168627, 0.921569)
+script = ExtResource("17_l27ob")
 metadata/_edit_group_ = true
 
 [node name="close" type="Button" parent="rulesscreen"]
@@ -364,6 +366,34 @@ label_settings = SubResource("LabelSettings_e4dyq")
 offset_right = 8.0
 offset_bottom = 8.0
 
+[node name="discards" type="ColorRect" parent="."]
+visible = false
+offset_left = 400.0
+offset_top = 250.0
+offset_right = 800.0
+offset_bottom = 450.0
+color = Color(0.0980392, 0.156863, 0.168627, 0.921569)
+script = ExtResource("18_8eoqu")
+metadata/_edit_group_ = true
+
+[node name="close" type="Button" parent="discards"]
+layout_direction = 3
+layout_mode = 0
+offset_left = 2.0
+offset_top = 1.0
+offset_right = 42.0
+offset_bottom = 41.0
+text = "x"
+
+[node name="Label" type="Label" parent="discards"]
+layout_mode = 2
+offset_left = 117.0
+offset_top = 71.0
+offset_right = 939.0
+offset_bottom = 519.0
+text = "Lifetime wins:"
+label_settings = SubResource("LabelSettings_e4dyq")
+
 [connection signal="deck_press" from="gamehandler/dungeon/CenterContainer/Control/deck" to="gamehandler" method="_on_deck_deck_press"]
 [connection signal="card_press" from="gamehandler/dungeon/room/CenterContainer/Control/RC" to="gamehandler" method="_on_rc_card_press"]
 [connection signal="card_press" from="gamehandler/dungeon/room/CenterContainer2/Control/RC" to="gamehandler" method="_on_rc_card_press"]
@@ -374,9 +404,11 @@ offset_bottom = 8.0
 [connection signal="pressed" from="gamehandler/play area/Menu/rules" to="gamehandler" method="_on_rules_pressed"]
 [connection signal="pressed" from="gamehandler/play area/Menu/stats" to="gamehandler" method="_on_stats_pressed"]
 [connection signal="toggled" from="gamehandler/play area/Menu/music" to="gamehandler/play area/Menu/music" method="_on_toggled"]
-[connection signal="pressed" from="rulesscreen/close" to="gamehandler" method="_on_close_rules_pressed"]
+[connection signal="pressed" from="rulesscreen/close" to="rulesscreen" method="_on_close_rules_pressed"]
 [connection signal="pressed" from="winscreen/reset" to="gamehandler" method="_on_reset_pressed"]
 [connection signal="pressed" from="losescreen/reset" to="gamehandler" method="_on_reset_pressed"]
 [connection signal="visibility_changed" from="statsscreen" to="statsscreen" method="_on_visibility_changed"]
-[connection signal="pressed" from="statsscreen/close" to="gamehandler" method="_on_close_stats_pressed"]
+[connection signal="pressed" from="statsscreen/close" to="statsscreen" method="_on_close_stats_pressed"]
 [connection signal="pressed" from="debugwins" to="gamehandler" method="_on_debugwins_pressed"]
+[connection signal="visibility_changed" from="discards" to="discards" method="_on_visibility_changed"]
+[connection signal="pressed" from="discards/close" to="gamehandler" method="_on_close_stats_pressed"]

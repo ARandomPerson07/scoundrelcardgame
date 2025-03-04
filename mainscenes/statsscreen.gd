@@ -13,7 +13,6 @@ func _process(delta: float) -> void:
 var conf = ConfigFile.new()
 
 func update_label():
-	print("update label?")
 	conf.load("user://stats.cfg")
 	var label = get_node("Label")
 	var wins = conf.get_value("all", "wins")
@@ -22,3 +21,7 @@ func update_label():
 func _on_visibility_changed() -> void:
 	if self.visible:
 		update_label()
+
+func _on_close_stats_pressed() -> void:
+	self.visible = false
+	self.get_node("close").disabled = true

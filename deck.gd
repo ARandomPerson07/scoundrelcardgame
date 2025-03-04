@@ -17,7 +17,7 @@ func _ready() -> void:
 	deckarr.shuffle()
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 signal deck_press
@@ -35,6 +35,6 @@ func put_bottom(arr) -> void:
 	for entry in arr:
 		deckarr.append(entry)
 	
-func _input_event(viewport, event, shape_idx):
+func _input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.pressed:
 		deck_press.emit()
