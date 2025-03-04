@@ -99,7 +99,7 @@ func _on_rc_card_press(card : Card, suit : ca.Suit, rank : ca.Rank) -> void:
 		if !len(deck.deckarr) == 0:
 			fade_warning_text()
 			return
-	print("play", suit, rank)
+	#print("play", suit, rank)
 	#card.visible = false
 	n_visible_roomcards -= 1
 	run.disabled = true
@@ -122,6 +122,10 @@ func _on_rc_card_press(card : Card, suit : ca.Suit, rank : ca.Rank) -> void:
 			if weaponrem.visible:
 				move_to_discard(weaponrem)
 			move_to_weapon(card)
+			if weapontoggle.disabled:
+				print("first weapon")
+				weapontoggle.disabled = false
+				weapontoggle.set_pressed_no_signal(true)
 			weaponrem.rank = ca.Rank.OVER
 		ca.Suit.HEARTS:
 			update_hp(rank)
@@ -158,20 +162,20 @@ func win():
 	winscreen.play_fanfare()
 
 func deal():
-	print("dealing")
+	#print("dealing")
 	decksfx.play()
 	for cont in rooms:
 		var cur_card : Card = cont.get_node("Control/RC")
-		print(cur_card.suit, cur_card.rank)
+		#print(cur_card.suit, cur_card.rank)
 		if cur_card.visible:
-			print("skipping")
+			#print("skipping")
 			continue
 		else:
 			nxt = deck.get_next()
 			var nsuit = nxt[0]
 			var nrank = nxt[1]
 			cur_card.set_card_attrs(nsuit,nrank)
-			print("updated to", cur_card.suit, cur_card.rank)
+			#print("updated to", cur_card.suit, cur_card.rank)
 			cur_card.visible = true
 	update_monsters()
 
@@ -198,7 +202,7 @@ func update_monsters():
 			cur_card.hide_warning()
 
 func _on_deck_deck_press() -> void:
-	print("dealing")
+	#print("dealing")
 	if game_started and n_visible_roomcards > 1:
 		return
 	else:

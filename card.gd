@@ -24,7 +24,7 @@ func _process(_delta: float) -> void:
 	pass
 
 func set_card_attrs(nsuit: ca.Suit, nrank: ca.Rank):
-	print("setting attrs")
+	#print("setting attrs")
 	self.suit = nsuit
 	self.rank = nrank
 	_set_card_sprite(nsuit, nrank)
