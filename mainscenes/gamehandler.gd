@@ -13,11 +13,11 @@ var hplabel : Label
 var run : Button
 var rules_window : ColorRect
 var stats_window : ColorRect
+var discards_window : ColorRect
 
 var roomsfx : AudioStreamPlayer
 var decksfx : AudioStreamPlayer
 var n_visible_roomcards: int = 0
-var discardpile : Array[Card]
 var conf = ConfigFile.new()
 
 # Called when the node enters the scene tree for the first time.
@@ -36,6 +36,7 @@ func _ready() -> void:
 	hplabel = get_node("play area/Menu/hplabel")
 	rules_window = get_node("../rulesscreen")
 	stats_window = get_node("../statsscreen")
+	discards_window = get_node("../discards")
 	roomsfx = get_node("roomsfx")
 	decksfx = get_node("decksfx")
 	hp = 20
@@ -58,9 +59,52 @@ func fade_warning_text():
 	tween.tween_property(warning, "modulate:a", 0, 1)
 
 func discard(card: Card):
-	card.visible = false
-	discardtop.set_card_attrs(card.suit, card.rank)
-	discardtop.visible = true
+	var deckview :MarginContainer = get_node("../discards/deckview")
+	var tempsuit = "none"
+	match card.suit:
+		ca.Suit.CLUBS:
+			tempsuit = "clubs"
+		ca.Suit.DIAMONDS:
+			tempsuit = "diamonds"
+		ca.Suit.HEARTS:
+			tempsuit = "hearts"
+		ca.Suit.SPADES:
+			tempsuit = "spades"
+	
+	var temprank = "none"
+	match card.rank:
+		ca.Rank.TWO:
+			temprank = "2"
+		ca.Rank.THREE:
+			temprank = "3"
+		ca.Rank.FOUR:
+			temprank = "4"
+		ca.Rank.FIVE:
+			temprank = "5"
+		ca.Rank.SIX:
+			temprank = "6"
+		ca.Rank.SEVEN:
+			temprank = "7"
+		ca.Rank.EIGHT:
+			temprank = "8"
+		ca.Rank.NINE:
+			temprank = "9"
+		ca.Rank.TEN:
+			temprank = "10"
+		ca.Rank.JACK:
+			temprank = "J"
+		ca.Rank.QUEEN:
+			temprank = "Q"
+		ca.Rank.KING:
+			temprank = "K"
+		ca.Rank.ACE:
+			temprank = "A"
+
+	var temppath = "suits/" + tempsuit + "/" + temprank
+	print(temppath)
+	var target = deckview.get_node(temppath)
+	print(target, "is node target")
+	target.highlight()
 	
 func update_hp(adj):
 	hp += adj
@@ -78,6 +122,7 @@ func move_to_discard(card: Card):
 	card.visible = false
 	discardtop.set_card_attrs(card.suit, card.rank)
 	discardtop.visible = true
+	discard(card)
 
 func move_to_weapon(card : Card):
 	if weapon.visible:
@@ -242,3 +287,13 @@ func _on_debugwins_pressed() -> void:
 
 func _on_warn_toggled(_toggled_on: bool) -> void:
 	update_monsters()
+
+
+func _on_close_discards_pressed() -> void:
+	discards_window.visible = false
+	get_node("../discards/close").disabled = true
+
+
+func _on_discard_card_press(c, s, r ) -> void:
+	discards_window.visible = true
+	get_node("../discards/close").disabled = false

@@ -1,0 +1,263 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfdxj7n6l43kx"]
+
+[ext_resource type="PackedScene" uid="uid://jlitfk7ng7o3" path="res://cardicon.tscn" id="1_d6lmd"]
+
+[node name="deckview" type="MarginContainer"]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.731
+offset_bottom = 0.311981
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="suits" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="clubs" type="HBoxContainer" parent="suits"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="suit" parent="suits/clubs" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "C"
+
+[node name="2" parent="suits/clubs" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "2"
+
+[node name="3" parent="suits/clubs" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "3"
+
+[node name="4" parent="suits/clubs" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "4"
+
+[node name="5" parent="suits/clubs" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "5"
+
+[node name="6" parent="suits/clubs" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "6"
+
+[node name="7" parent="suits/clubs" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "7"
+
+[node name="8" parent="suits/clubs" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "8"
+
+[node name="9" parent="suits/clubs" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "9"
+
+[node name="10" parent="suits/clubs" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "10"
+
+[node name="J" parent="suits/clubs" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "J"
+
+[node name="Q" parent="suits/clubs" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "Q"
+
+[node name="K" parent="suits/clubs" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "K"
+
+[node name="A" parent="suits/clubs" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "A"
+
+[node name="spades" type="HBoxContainer" parent="suits"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="suit" parent="suits/spades" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "S"
+
+[node name="2" parent="suits/spades" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "2"
+
+[node name="3" parent="suits/spades" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "3"
+
+[node name="4" parent="suits/spades" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "4"
+
+[node name="5" parent="suits/spades" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "5"
+
+[node name="6" parent="suits/spades" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "6"
+
+[node name="7" parent="suits/spades" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "7"
+
+[node name="8" parent="suits/spades" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "8"
+
+[node name="9" parent="suits/spades" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "9"
+
+[node name="10" parent="suits/spades" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "10"
+
+[node name="J" parent="suits/spades" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "J"
+
+[node name="Q" parent="suits/spades" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "Q"
+
+[node name="K" parent="suits/spades" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "K"
+
+[node name="A" parent="suits/spades" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "A"
+
+[node name="hearts" type="HBoxContainer" parent="suits"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="suit" parent="suits/hearts" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "H"
+textcolor = Color(0.843137, 0, 0, 1)
+
+[node name="2" parent="suits/hearts" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "2"
+textcolor = Color(0.843137, 0, 0, 1)
+
+[node name="3" parent="suits/hearts" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "3"
+textcolor = Color(0.843137, 0, 0, 1)
+
+[node name="4" parent="suits/hearts" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "4"
+
+[node name="5" parent="suits/hearts" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "5"
+
+[node name="6" parent="suits/hearts" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "6"
+
+[node name="7" parent="suits/hearts" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "7"
+
+[node name="8" parent="suits/hearts" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "8"
+
+[node name="9" parent="suits/hearts" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "9"
+
+[node name="Control" type="Control" parent="suits/hearts"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control2" type="Control" parent="suits/hearts"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control3" type="Control" parent="suits/hearts"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control4" type="Control" parent="suits/hearts"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control5" type="Control" parent="suits/hearts"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="diamonds" type="HBoxContainer" parent="suits"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="suit" parent="suits/diamonds" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "D"
+
+[node name="2" parent="suits/diamonds" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "2"
+
+[node name="3" parent="suits/diamonds" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "3"
+
+[node name="4" parent="suits/diamonds" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "4"
+
+[node name="5" parent="suits/diamonds" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "5"
+
+[node name="6" parent="suits/diamonds" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "6"
+
+[node name="7" parent="suits/diamonds" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "7"
+
+[node name="8" parent="suits/diamonds" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "8"
+
+[node name="9" parent="suits/diamonds" instance=ExtResource("1_d6lmd")]
+layout_mode = 2
+text = "9"
+
+[node name="Control" type="Control" parent="suits/diamonds"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control2" type="Control" parent="suits/diamonds"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control3" type="Control" parent="suits/diamonds"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control4" type="Control" parent="suits/diamonds"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control5" type="Control" parent="suits/diamonds"]
+layout_mode = 2
+size_flags_horizontal = 3

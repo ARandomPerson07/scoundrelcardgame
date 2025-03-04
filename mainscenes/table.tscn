@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dpbgkhg0xab7o"]
+[gd_scene load_steps=30 format=3 uid="uid://dpbgkhg0xab7o"]
 
 [ext_resource type="Texture2D" uid="uid://d0oyfba148rr5" path="res://imports/table.png" id="1_pr3w4"]
 [ext_resource type="Script" path="res://mainscenes/gamehandler.gd" id="2_smhue"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" path="res://mainscenes/rulesscreen.gd" id="17_l27ob"]
 [ext_resource type="AudioStream" uid="uid://c7kvvvmogi7pq" path="res://imports/failure-drum-sound-effect-2-7184.mp3" id="17_xckgl"]
 [ext_resource type="Script" path="res://mainscenes/statsscreen.gd" id="18_8eoqu"]
+[ext_resource type="PackedScene" uid="uid://dfdxj7n6l43kx" path="res://deckview.tscn" id="22_r4frd"]
 
 [sub_resource type="SystemFont" id="SystemFont_2aduu"]
 
@@ -375,12 +376,11 @@ offset_bottom = 8.0
 
 [node name="discards" type="ColorRect" parent="."]
 visible = false
-offset_left = 714.0
-offset_top = 264.0
-offset_right = 1114.0
-offset_bottom = 464.0
+offset_left = 685.0
+offset_top = 246.0
+offset_right = 1115.0
+offset_bottom = 495.0
 color = Color(0.0980392, 0.156863, 0.168627, 0.921569)
-metadata/_edit_group_ = true
 
 [node name="close" type="Button" parent="discards"]
 layout_direction = 3
@@ -390,6 +390,26 @@ offset_top = 1.0
 offset_right = 42.0
 offset_bottom = 41.0
 text = "x"
+
+[node name="deckview" parent="discards" instance=ExtResource("22_r4frd")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 17.0
+offset_top = 34.0
+offset_right = 416.0
+offset_bottom = 233.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Label" type="Label" parent="discards"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 16.0
+offset_right = 112.0
+offset_bottom = 39.0
+text = "Discards"
 
 [connection signal="deck_press" from="gamehandler/dungeon/CenterContainer/Control/deck" to="gamehandler" method="_on_deck_deck_press"]
 [connection signal="card_press" from="gamehandler/dungeon/room/CenterContainer/Control/RC" to="gamehandler" method="_on_rc_card_press"]
@@ -402,6 +422,7 @@ text = "x"
 [connection signal="pressed" from="gamehandler/play area/Menu/stats" to="gamehandler" method="_on_stats_pressed"]
 [connection signal="toggled" from="gamehandler/play area/Menu/music" to="gamehandler/play area/Menu/music" method="_on_toggled"]
 [connection signal="toggled" from="gamehandler/play area/Menu/warn" to="gamehandler" method="_on_warn_toggled"]
+[connection signal="card_press" from="gamehandler/play area/DiscardCont/Control/Discard" to="gamehandler" method="_on_discard_card_press"]
 [connection signal="pressed" from="rulesscreen/close" to="rulesscreen" method="_on_close_rules_pressed"]
 [connection signal="pressed" from="winscreen/reset" to="gamehandler" method="_on_reset_pressed"]
 [connection signal="pressed" from="losescreen/reset" to="gamehandler" method="_on_reset_pressed"]
@@ -409,4 +430,4 @@ text = "x"
 [connection signal="pressed" from="statsscreen/close" to="statsscreen" method="_on_close_stats_pressed"]
 [connection signal="pressed" from="debugwins" to="gamehandler" method="_on_debugwins_pressed"]
 [connection signal="visibility_changed" from="discards" to="discards" method="_on_visibility_changed"]
-[connection signal="pressed" from="discards/close" to="gamehandler" method="_on_close_stats_pressed"]
+[connection signal="pressed" from="discards/close" to="gamehandler" method="_on_close_discards_pressed"]

@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://jlitfk7ng7o3"]
+
+[ext_resource type="Script" path="res://cardicon.gd" id="1_5unip"]
+[ext_resource type="Script" path="res://cardiconlabel.gd" id="2_gu6mk"]
+
+[node name="cardicon" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1089.0
+offset_bottom = -560.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+script = ExtResource("1_5unip")
+textcolor = Color(0.647681, 0.274613, 0.235286, 1)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 2
+color = Color(0.347817, 0.347817, 0.347817, 1)
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "A"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_gu6mk")
+
+[connection signal="color_changed" from="." to="ColorRect/Label" method="_on_cardicon_color_changed"]
+[connection signal="text_changed" from="." to="ColorRect/Label" method="_on_cardicon_text_changed"]
